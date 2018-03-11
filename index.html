@@ -1,13 +1,70 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link type="text/css" rel="stylesheet" href="css/animate.css">
-    <link rel="icon" href="assets/images/1.png">
+    <link type="text/css" rel="stylesheet" href="{% static "css/style.css "%}">
+    <link type="text/css" rel="stylesheet" href={% static "css/animate.css "%}">
+    <style>
+        .animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
 
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+  animation-duration: 0.5s;
+}
+    </style>
     <title>
         Sherlocked
     </title>
@@ -20,35 +77,33 @@
     </div>
     <nav id="navbar">
         <h1>Sherlocked</h1>
-        <div class="img-container"><img src="assets/images/1.png"></div>
+        <div class="img-container"><img src="static/assets/images/1.png"></div>
         <ul>
-            <li class="active">Solve Mystery<img class="li-icon" src="assets/images/icon-1.png"></li>
-            <li>Leaderboard<img class="li-icon" src="assets/images/icon-2.png"></li>
-            <li>Description<img class="li-icon" src="assets/images/icon-3.png"></li>
-            <li>Rules<img class="li-icon" src="assets/images/icon-4.png"></li>
-            <li>Forum<img class="li-icon" src="assets/images/icon-5.png"></li>
-            <li>Logout<img class="li-icon" src="assets/images/icon-6.png"></li>
+        <li class=""><a href="/mystery">Solve Mystery<img class="li-icon" src="static/assets/images/icon-1.png"></a></li>
+        <li class=""><a href="/leaderboard">Leaderboard<img class="li-icon" src="static/assets/images/icon-2.png"></a></li>
+        <li class=""><a href="/description">Description<img class="li-icon" src="static/assets/images/icon-3.png"></a></li>
+        <li class=""><a href="/rules">Rules<img class="li-icon" src="static/assets/images/icon-4.png"></a></li>
+        <li class=""><a href="https://www.facebook.com/zealSherlocked/">Forum<img class="li-icon" src="static/assets/images/icon-5.png"></a></li>
+        <li class=""><a href="/logout">Logout<img class="li-icon" src="static/assets/images/icon-6.png"></a></li>    
         </ul>
     </nav>
     <div class="container">
         <main>
-            <div id="story">
-                <p class="storyline">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum ligula vitae sollicitudin dapibus. Mauris eu leo auctor, ullamcorper ante eget, lobortis lacus. Etiam efficitur aliquet felis eu porttitor. Phasellus iaculis sagittis urna vitae sagittis. Nulla nunc tellus, blandit eu magna ut, bibendum bibendum dolor. Aliquam et molestie mi. Duis mattis faucibus sapien id rutrum. Mauris ut ex sit amet ex molestie rhoncus. Suspendisse velit leo, fermentum at commodo euismod, tristique in felis. Fusce augue tortor, volutpat id velit porttitor, gravida sollicitudin justo. Duis euismod augue ac tincidunt scelerisque. Proin quis mauris gravida, imperdiet augue a, elementum nulla.</p>
+<!-- <button class="description_btn" onclick="open_des();">See Question Description</button>
+ -->            <div class="description_container animated   fadeIn" id="description_container">
+                <div class="description">{{q.question_story|linebreaks }}</div>
+                <button class="close" onclick="close_des();">Skip</button>
             </div>
-            <div id="question">
-                <button class="description_btn" onclick="open_des();">See Question Description</button>
-                <div class="description_container animated" id="description_container">
-                    <button class="close" onclick="close_des();"></button>
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum ligula vitae sollicitudin dapibus. Mauris eu leo auctor, ullamcorper ante eget, lobortis lacus. Etiam efficitur aliquet felis eu porttitor. Phasellus iaculis sagittis urna vitae sagittis. Nulla nunc tellus, blandit eu magna ut, bibendum bibendum dolor. Aliquam et molestie mi. Duis mattis faucibus sapien id rutrum. Mauris ut ex sit amet ex molestie rhoncus. Suspendisse velit leo, fermentum at commodo euismod, tristique in felis. Fusce augue tortor, volutpat id velit porttitor, gravida sollicitudin justo. Duis euismod augue ac tincidunt scelerisque. Proin quis mauris gravida, imperdiet augue a, elementum nulla.</p>
-                </div>
-                <input placeholder="Answer" type="text" class="input" id="answer">
-                <button class="solve_btn" id="solve">Solve</button>
-            </div>
-            <img class="sher" src="assets/images/sher.png" id="sher">
-        </main>
+            <div class="question_container hidden animated " id="question_container">
+            <div class="question">{{q.Question|linebreaks }}</div>
+            <form method="post" action="/check_answer">
+            {% csrf_token %}
+            <input type="text" name="answer" id="answer" name="answer" placeholder="Answer">
+            <button class="solve_btn" id="solve">Solve</button>
+            </form></div>
+            <img class="sher" src="static/assets/images/sher.png" id="sher"> </main>
     </div>
-
-    <script type="application/javascript" src="js/script.js"></script>
+    <script type="application/javascript" src="static/js/script.js"></script>
 </body>
 
 </html>
