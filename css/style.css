@@ -272,6 +272,77 @@ main .table_container tr:first-child {
     font-size: 18px;
 }
 
+/* For Firefox */
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+/* Webkit browsers like Safari and Chrome */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.container-login {
+    width: 100vw;
+    position: absolute;
+    top: 8vh;
+    text-align: center;
+    height: 100vh;
+}
+
+.container-login h1 {
+    margin-bottom: 40px;
+    font-size: 72px;
+    font-weight: 700;
+}
+
+.login-field,
+.login-button {
+    display: block;
+    padding: 8px;
+    margin: 8px auto;
+    width: 20vw;
+    text-align: center;
+    border: none;
+}
+
+.login-button {
+    height: 35px;
+    padding: 5px 40px;
+    background: #283036;
+    color: #fff;
+    border-radius: 20px;
+}
+
+.login-button:hover {
+    color: #283036;
+    background: #fff;
+    cursor: pointer;
+}
+
+.login-button:active,
+.login-button:focus {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.footer-img {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    z-index: -1;
+}
+
+.container-login a {
+    text-decoration: none;
+    color: #ffa055;
+}
+
 @media only screen and (max-width:768px) {
     nav {
         width: 100%;
@@ -377,6 +448,10 @@ main .table_container tr:first-child {
     main .table_container {
         height: 55vh;
         overflow-y: auto;
+    }
+    .login-field,
+    .login-button {
+        width: 80vw;
     }
 
 }
